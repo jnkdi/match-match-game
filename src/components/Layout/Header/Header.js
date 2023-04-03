@@ -1,10 +1,14 @@
 // import { useNavigate } from "react-router-dom";
+// import { useState } from 'react';
 import Nav from './Nav';
+import Button from '../../UI/Button';
 import './Header.scss';
 import about from '../../../assets/header/about-icon.svg';
 import best from '../../../assets/header/best-score-icon.svg';
 import settings from '../../../assets/header/settings-icon.svg';
-const Header = () => {
+
+
+const Header = (props) => {
   // const routeChange = () => {
 
   // }
@@ -27,6 +31,8 @@ const Header = () => {
     },
   ]
 
+  let buttonText = 'register new player';
+
   return (
     <header className='header'>
       <div className='header__logo'>
@@ -34,7 +40,7 @@ const Header = () => {
         <p>match</p>
       </div>
       <Nav navItems={navItems}/>
-      <button className='header__button'>register new player</button>
+      <Button onClick={props.onOpenRegister}>{buttonText}</Button>
     </header>
   )
 }
