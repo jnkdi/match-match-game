@@ -1,8 +1,15 @@
+import { NavLink } from "react-router-dom";
+
 const NavItem = (props) => {
   return (
-    <li className='nav__item'>
+    <li>
+      <NavLink
+        className="nav__item"
+        to={props.href}
+      >
       <img src={props.src} alt='icon'/>
       <p>{props.title}</p>
+    </NavLink>
     </li>
   )
 }

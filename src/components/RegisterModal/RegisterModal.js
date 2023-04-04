@@ -1,13 +1,25 @@
 import "./RegisterModal.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import { v4 } from "uuid";
 import styled from "styled-components";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 
 const Modal = (props) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredLastName, setEnteredLastName] = useState("");
-  const [enteredEmail, setEnteredEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userAvatar, setUserAvatar] = useState(null);
   const [error, setError] = useState(false);
 
   const ModalError = styled.div`
@@ -16,33 +28,48 @@ const Modal = (props) => {
   `;
 
   const nameChangeHandler = (event) => {
-    setEnteredName(event.target.value);
-  };
-
-  const lastNameChangeHandler = (event) => {
-    setEnteredLastName(event.target.value);
+    setUserName(event.target.value);
   };
 
   const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
+    setUserEmail(event.target.value);
   };
 
-  const addUserHandler = () => {
+  const imageChangeHandler = (event) => {
+    setUserAvatar(event.target.files[0]);
+  };
+
+  const usersCollectionRef = collection(db, 'users');
+
+  const addUserHandler = async () => {
     if (
-      enteredName.trim().length === 0 ||
-      enteredLastName.trim().length === 0 ||
-      enteredEmail.trim().length === 0
+      userName.trim().length === 0 ||
+      userEmail.trim().length === 0
     ) {
       setError(true);
       return;
     }
 
-    const userData = {
-      name: enteredName,
-      lastName: enteredLastName,
-      email: enteredEmail,
-      id: Math.random().toString(),
+    if(userAvatar) {
+      const imageRef = ref(storage, `images/${userAvatar.name + v4()}`);
+      uploadBytes(imageRef, userAvatar).then(() => {
+        console.log('image uploaded');
+      })
     }
+
+    const userData = {
+      name: userName,
+      email: userEmail,
+      // image: userAvatar,
+      id: Math.random().toString(),
+    };
+
+    try {
+      await addDoc(usersCollectionRef, {userData});
+    } catch(err) {
+      console.log(err);
+    }
+    
 
     setError(false);
     props.onCloseModal();
@@ -58,22 +85,20 @@ const Modal = (props) => {
           <input
             onChange={nameChangeHandler}
             type="text"
-            placeholder="First Name"
-          />
-          <input
-            onChange={lastNameChangeHandler}
-            type="text"
-            placeholder="Last Name"
+            placeholder="Name"
           />
           <input
             onChange={emailChangeHandler}
             type="text"
             placeholder="E-mail"
           />
+          <input onChange={imageChangeHandler} type="file" name="file" />
           <ModalError className="user-modal__error">Enter all data</ModalError>
         </form>
         <div className="actions">
-          <Button type='submit' onClick={addUserHandler}>Add user</Button>
+          <Button type="submit" onClick={addUserHandler}>
+            Add user
+          </Button>
           <Button onClick={props.onCloseModal}>cancel</Button>
         </div>
       </Card>

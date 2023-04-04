@@ -1,0 +1,45 @@
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 12px 0;
+
+  &::after {
+    content: ' ';
+    bottom: 0;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: #21212114;
+  }
+
+  .user__profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.1px;
+    color: #333333;
+  }
+
+  .user__img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+
+  .user__score {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    color: rgba(0, 0, 0, 0.87);
+
+    span {
+      color: #2196F3;
+    }
+  }
+}

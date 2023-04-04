@@ -16,12 +16,6 @@ function App() {
     setIsRegisterShown(false);
   };
 
-  // const registerHandler = () => {
-  //   console.log('buton works');
-  //   openModal = true;
-  //   console.log(openModal);
-  // }
-
   return (
     <BrowserRouter>
       <Header
@@ -29,7 +23,7 @@ function App() {
         onCloseRegister={hideRegisterHandler}
       />
       <Routes>
-        <Route index element={<AboutGame openRegister={isRegisterShown} onCloseRegister={hideRegisterHandler} />} />
+        <Route index path='/about-game' element={<AboutGame openRegister={isRegisterShown} onCloseRegister={hideRegisterHandler} />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/best-score" element={<BestScore />} />
       </Routes>
