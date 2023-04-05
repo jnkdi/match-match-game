@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Nav from './Nav';
 import Button from '../../UI/Button';
 import './Header.scss';
@@ -28,7 +29,7 @@ const Header = (props) => {
     },
   ]
 
-  let buttonText = 'register new player';
+  console.log(props);
 
   return (
     <header className='header'>
@@ -37,7 +38,9 @@ const Header = (props) => {
         <p>match</p>
       </div>
       <Nav navItems={navItems}/>
-      <Button onClick={props.onOpenRegister} className='header__button'>{buttonText}</Button>
+      {!props.isRegistered && <Button onClick={props.onOpenRegister} className='header__button'>register new player</Button>}
+      {props.isRegistered && !props.isGameOn && <Button onClick={props.onStartGame} className='header__button'><Link to='/game'>start game</Link></Button>}
+      {props.isGameOn && <Button onClick={props.onStopGame} className='header__button'>stop game</Button>}
     </header>
   )
 }

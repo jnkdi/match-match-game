@@ -30,7 +30,7 @@ const AboutGame = (props) => {
 
   return (
     <Fragment>
-      {props.openRegister && <Modal onCloseModal={props.onCloseRegister}/>}
+      {props.openRegister && <Modal onCloseModal={props.onCloseRegister} onRegister={props.onRegister}/>}
       <Card className="about-game">
         <h2 className="about-game__title">How to play?</h2>
         <Rules rules={rules}></Rules>

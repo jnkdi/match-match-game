@@ -24,7 +24,7 @@ const Modal = (props) => {
 
   const ModalError = styled.div`
     display: ${error ? "block" : "none"};
-    opactiy: ${error ? "1" : "10"};
+    opactiy: ${error ? "1" : "0"};
   `;
 
   const nameChangeHandler = (event) => {
@@ -70,8 +70,8 @@ const Modal = (props) => {
       console.log(err);
     }
     
-
     setError(false);
+    props.onRegister();
     props.onCloseModal();
     console.log(userData);
   };

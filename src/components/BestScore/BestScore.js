@@ -1,7 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
 import "./BestScore.scss";
-// import { storage } from "../../firebase";
-// import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { db } from "../../firebase";
 import { getDocs, collection } from "firebase/firestore";
 import Card from "../UI/Card";
@@ -30,19 +28,17 @@ const BestScore = () => {
   }, []);
 
   return (
-    <Fragment>
-      <Card className="best-players">
-        <h2 className="best-players__title">Best players</h2>
-        {usersList.map((user) => (
-          <User
-            url={user.userData.URL}
-            name={user.userData.name}
-            score={user.userData.score || "0"}
-            key={user.id}
-          ></User>
-        ))}
-      </Card>
-    </Fragment>
+    <Card className="best-players">
+      <h2 className="best-players__title">Best players</h2>
+      {usersList.map((user) => (
+        <User
+          url={user.userData.URL}
+          name={user.userData.name}
+          score={user.userData.score || "0"}
+          key={user.id}
+        ></User>
+      ))}
+    </Card>
   );
 };
 

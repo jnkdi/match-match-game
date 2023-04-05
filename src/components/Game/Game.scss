@@ -1,0 +1,19 @@
+.game {
+  font-family: 'Roboto';
+  padding: 25px 50px;
+  max-width: 1000px;
+  margin: 33px auto;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .game__stopwatch {
+    padding: 15px 85px;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 30px;
+    letter-spacing: 0.15px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+}
