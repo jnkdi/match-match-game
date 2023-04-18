@@ -21,17 +21,17 @@ function App() {
   };
 
   const registeredHandler = () => {
-    setIsRegistered(true)
-  }
+    setIsRegistered(true);
+  };
 
   const startGameHandler = () => {
     setIsGameOn(true);
-  }
+  };
 
   const stopGameHandler = () => {
     setIsStopwatchRunning(false);
     setIsGameOn(false);
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -44,8 +44,26 @@ function App() {
         isGameOn={isGameOn}
       />
       <Routes>
-        <Route index path='/about-game' element={<AboutGame onRegister={registeredHandler} openRegister={isRegisterShown} onCloseRegister={hideRegisterHandler} />} />
-        <Route path="/game" element={<Game isStopwatchRunning={isStopwatchRunning} setIsStopwatchRunning={setIsStopwatchRunning}/>} />
+        <Route
+          index
+          path="/about-game"
+          element={
+            <AboutGame
+              onRegister={registeredHandler}
+              openRegister={isRegisterShown}
+              onCloseRegister={hideRegisterHandler}
+            />
+          }
+        />
+        <Route
+          path="/game"
+          element={
+            <Game
+              isStopwatchRunning={isStopwatchRunning}
+              setIsStopwatchRunning={setIsStopwatchRunning}
+            />
+          }
+        />
         <Route path="/settings" element={<Settings />} />
         <Route path="/best-score" element={<BestScore />} />
       </Routes>

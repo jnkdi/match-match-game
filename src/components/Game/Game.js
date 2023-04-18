@@ -10,7 +10,6 @@ const Game = (props) => {
   const showTime = 5;
   const [turns, setTurns] = useState(0);
 
-
   return (
     <main>
       <Card className="game">

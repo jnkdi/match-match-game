@@ -1,12 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import { getDocs, collection } from "firebase/firestore";
 import GameCard from "./GameCard";
 
 const GameCards = (props) => {
-  // const [cardImages, setCardImages] = useState([]);
   const [cardList, setCardList] = useState([]);
-  const [className, setClassName] = useState();
   const [isFlipped, setIsFlipped] = useState(true);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
@@ -23,13 +21,12 @@ const GameCards = (props) => {
           id: doc.id,
         }));
 
-        // setCardImages(filteredData.slice(props.cardsAmount / 2 - 1));
-
         setCardList(
-          filteredData.slice(props.cardsAmount / 2 - 1)
-          .concat(filteredData.slice(props.cardsAmount / 2 - 1))
-          .sort(() => Math.random() - 0.5)
-          .map((card) => ({ ...card, id: Math.random() }))
+          filteredData
+            .slice(props.cardsAmount / 2 - 1)
+            .concat(filteredData.slice(props.cardsAmount / 2 - 1))
+            .sort(() => Math.random() - 0.5)
+            .map((card) => ({ ...card, id: Math.random() }))
         );
 
         setChoiceOne(null);
@@ -51,18 +48,14 @@ const GameCards = (props) => {
 
   const shuffleCards = () => {
     const shuffledCards = cardList;
-
-
     setChoiceOne(null);
     setChoiceTwo(null);
     setCardList(shuffledCards);
-    console.log(shuffledCards);
     props.setTurns(0);
   };
 
   // handle a choice
   const handleChoice = (card) => {
-    console.log(card);
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
@@ -71,7 +64,7 @@ const GameCards = (props) => {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
 
-      if (choiceOne.src === choiceTwo.src) {
+      if (choiceOne.src === choiceTwo.src && choiceOne.id !== choiceTwo.id) {
         setCardList((prevCards) => {
           return prevCards.map((card) => {
             if (card.src === choiceOne.src) {
@@ -96,24 +89,15 @@ const GameCards = (props) => {
     setDisabled(false);
   };
 
-  // start new game automagically
-  // useEffect(() => {
-  //   shuffleCards();
-  //   setTimeout(() => {
-  //     setIsFlipped(false);
-  //   }, 5 * 1000);
-  // }, []);
-
-  console.log(cardList);
   return (
     <div className="game__cards">
       {cardList.map((card) => (
         <GameCard
           src={card.src}
-          key={Math.random()}
+          key={card.id}
           card={card}
           handleChoice={handleChoice}
-          flipped={
+          flippedFront={
             card === choiceOne ||
             card === choiceTwo ||
             card.matched ||
