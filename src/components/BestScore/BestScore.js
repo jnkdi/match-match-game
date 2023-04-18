@@ -32,7 +32,7 @@ const BestScore = () => {
       <h2 className="best-players__title">Best players</h2>
       {usersList.map((user) => (
         <User
-          url={user.userData.URL}
+          image={user.userData.image}
           name={user.userData.name}
           score={user.userData.score || "0"}
           key={user.id}

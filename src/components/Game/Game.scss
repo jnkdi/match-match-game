@@ -1,5 +1,5 @@
 .game {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   padding: 25px 50px;
   max-width: 1000px;
   margin: 33px auto;
@@ -10,10 +10,63 @@
 
   .game__stopwatch {
     padding: 15px 85px;
+    margin-bottom: 60px;
     font-weight: 500;
     font-size: 36px;
     line-height: 30px;
     letter-spacing: 0.15px;
     color: rgba(0, 0, 0, 0.4);
+  }
+
+  .game__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .card__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    perspective: 25rem;
+
+    // &:hover > .game__card {
+    //   cursor: pointer;
+    //   transform: rotateY(180deg);
+    // }
+  }
+
+  .game__card {
+    height: 168px;
+    width: 168px;
+    background-size: 90%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s;
+
+    &.flipped {
+      cursor: pointer;
+      transform: rotateY(180deg);
+    }
+
+    .card__front , .card__back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      backface-visibility: hidden;
+    }
+
+    .card__front {
+      background: no-repeat center / contain #ffffff;
+      background-size: 80%;
+    }
+
+    .card__back {
+      background: #2196f3;
+      transform: rotateY(180deg);
+    }
   }
 }

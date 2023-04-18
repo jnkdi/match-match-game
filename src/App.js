@@ -25,7 +25,6 @@ function App() {
   }
 
   const startGameHandler = () => {
-    setIsStopwatchRunning(true);
     setIsGameOn(true);
   }
 
@@ -46,7 +45,7 @@ function App() {
       />
       <Routes>
         <Route index path='/about-game' element={<AboutGame onRegister={registeredHandler} openRegister={isRegisterShown} onCloseRegister={hideRegisterHandler} />} />
-        <Route path="/game" element={<Game isStopwatchRunning={isStopwatchRunning} />} />
+        <Route path="/game" element={<Game isStopwatchRunning={isStopwatchRunning} setIsStopwatchRunning={setIsStopwatchRunning}/>} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/best-score" element={<BestScore />} />
       </Routes>
