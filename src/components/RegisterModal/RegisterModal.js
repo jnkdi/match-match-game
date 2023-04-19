@@ -1,21 +1,13 @@
 import "./RegisterModal.scss";
 import { useState } from "react";
 import { storage } from "../../firebase";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import {
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { v4 } from "uuid";
-import Card from "../UI/Card";
-import Button from "../UI/Button";
+import Modal from "../UI/Modal";
 
-const Modal = (props) => {
+const RegisterModal = (props) => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
@@ -79,36 +71,29 @@ const Modal = (props) => {
   };
 
   return (
-    <div className={"modal"} onClick={props.onCloseModal}>
-      <div className="backdrop" />
-      <Card className="user-modal" onClick={(e) => e.stopPropagation()}>
-        <h2 className="user-modal__title">Register new Player</h2>
-        <form className="user-modal__form">
-          <input onChange={nameChangeHandler} type="text" placeholder="Name" />
-          <input
-            onChange={emailChangeHandler}
-            type="text"
-            placeholder="E-mail"
-          />
-          <input onChange={imageChangeHandler} type="file" name="file" />
-          <span
-            className="user-modal__error"
-            style={{
-              display: error ? "block" : "none",
-            }}
-          >
-            Enter all data
-          </span>
-        </form>
-        <div className="actions">
-          <Button type="submit" onClick={addUserHandler}>
-            Add user
-          </Button>
-          <Button onClick={props.onCloseModal}>cancel</Button>
-        </div>
-      </Card>
-    </div>
+    <Modal
+      onCloseModal={props.onCloseModal}
+      modalTitle={"Register new Player"}
+      primaryButtonAction={addUserHandler}
+      primaryButtonContent={"Add user"}
+      secondaryButtonAction={props.onCloseModal}
+      secondaryButtonContent={"cancel"}
+    >
+      <form className="user-modal__form">
+        <input onChange={nameChangeHandler} type="text" placeholder="Name" />
+        <input onChange={emailChangeHandler} type="text" placeholder="E-mail" />
+        <input onChange={imageChangeHandler} type="file" name="file" />
+        <span
+          className="user-modal__error"
+          style={{
+            display: error ? "block" : "none",
+          }}
+        >
+          Enter all data
+        </span>
+      </form>
+    </Modal>
   );
 };
 
-export default Modal;
+export default RegisterModal;

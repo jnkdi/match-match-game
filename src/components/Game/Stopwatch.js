@@ -9,6 +9,7 @@ const Stopwatch = (props) => {
 
     if (props.isRunning) {
       intervalId = setInterval(() => setTime(time + 1), 10);
+      props.setTime(Math.round(time / 100));
     }
 
     return () => clearInterval(intervalId);

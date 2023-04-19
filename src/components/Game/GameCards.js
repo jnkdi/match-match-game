@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
 import { getDocs, collection } from "firebase/firestore";
 import GameCard from "./GameCard";
@@ -9,6 +9,7 @@ const GameCards = (props) => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(true);
+  const matchAmount = useRef(0);
 
   const cardsCollectionRef = collection(db, props.cardsSet);
 
@@ -65,6 +66,10 @@ const GameCards = (props) => {
       setDisabled(true);
 
       if (choiceOne.src === choiceTwo.src && choiceOne.id !== choiceTwo.id) {
+        matchAmount.current += 2;
+        if (matchAmount.current === props.cardsAmount) {
+          props.endGame();
+        }
         setCardList((prevCards) => {
           return prevCards.map((card) => {
             if (card.src === choiceOne.src) {
@@ -86,8 +91,17 @@ const GameCards = (props) => {
     setChoiceOne(null);
     setChoiceTwo(null);
     props.setTurns((prevTurns) => prevTurns + 1);
+    // props.setPoints(1 / (props.turns * Math.round(props.time)) * 10000);
+    // props.setPoints(1000 - props.turns * 10 - Math.round(props.time) * 5);
     setDisabled(false);
   };
+
+  //stop game and calculate points
+  // const endGame = () => {
+  //   props.setIsStopwatchRunning(false);
+  //   // props.setPoints(1000 / (props.turns * Math.round(props.time)));
+  //   // props.setPoints(1000 - props.turns * 10 - Math.round(props.time) * 5);
+  // };
 
   return (
     <div className="game__cards">

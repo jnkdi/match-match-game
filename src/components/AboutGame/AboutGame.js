@@ -1,14 +1,13 @@
 import { Fragment } from "react";
 import "./AboutGame.scss";
 import Card from "../UI/Card";
-import Modal from "../RegisterModal/RegisterModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 import Rules from "./Rules";
 import pic01 from "../../assets/about/01.jpg";
 import pic02 from "../../assets/about/02.jpg";
 import pic03 from "../../assets/about/03.jpg";
 
 const AboutGame = (props) => {
-
   const rules = [
     {
       id: 1,
@@ -30,7 +29,12 @@ const AboutGame = (props) => {
 
   return (
     <Fragment>
-      {props.openRegister && <Modal onCloseModal={props.onCloseRegister} onRegister={props.onRegister}/>}
+      {props.openRegister && (
+        <RegisterModal
+          onCloseModal={props.onCloseRegister}
+          onRegister={props.onRegister}
+        />
+      )}
       <Card className="about-game">
         <h2 className="about-game__title">How to play?</h2>
         <Rules rules={rules}></Rules>
