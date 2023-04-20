@@ -24,8 +24,8 @@ const GameCards = (props) => {
 
         setCardList(
           filteredData
-            .slice(props.cardsAmount / 2 - 1)
-            .concat(filteredData.slice(props.cardsAmount / 2 - 1))
+            .slice(0, props.cardsAmount / 2)
+            .concat(filteredData.slice(0, props.cardsAmount / 2))
             .sort(() => Math.random() - 0.5)
             .map((card) => ({ ...card, id: Math.random() }))
         );
