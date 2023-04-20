@@ -10,7 +10,6 @@ function App() {
   const [isRegisterShown, setIsRegisterShown] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isGameOn, setIsGameOn] = useState(false);
-  const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
 
   const showRegisterHandler = () => {
     setIsRegisterShown(true);
@@ -29,7 +28,6 @@ function App() {
   };
 
   const stopGameHandler = () => {
-    setIsStopwatchRunning(false);
     setIsGameOn(false);
   };
 
@@ -40,7 +38,6 @@ function App() {
         onCloseRegister={hideRegisterHandler}
         isRegistered={isRegistered}
         onStartGame={startGameHandler}
-        onStopGame={stopGameHandler}
         isGameOn={isGameOn}
       />
       <Routes>
@@ -58,10 +55,7 @@ function App() {
         <Route
           path="/game"
           element={
-            <Game
-              isStopwatchRunning={isStopwatchRunning}
-              setIsStopwatchRunning={setIsStopwatchRunning}
-            />
+            <Game stopGame={stopGameHandler} startGame={startGameHandler} />
           }
         />
         <Route path="/settings" element={<Settings />} />

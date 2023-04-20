@@ -45,11 +45,7 @@ const Header = (props) => {
           <Link to="/game">start game</Link>
         </Button>
       )}
-      {props.isGameOn && (
-        <Button onClick={props.onStopGame} className="header__button">
-          stop game
-        </Button>
-      )}
+      {props.isRegistered && props.isGameOn && <div></div>}
     </header>
   );
 };

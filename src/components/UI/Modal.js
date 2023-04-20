@@ -9,12 +9,23 @@ const Modal = (props) => {
         <h2 className="user-modal__title">{props.modalTitle}</h2>
         {props.children}
         <div className="actions">
-          <Button type="submit" onClick={props.primaryButtonAction}>
-            {props.primaryButtonContent}
-          </Button>
-          <Button onClick={props.secondaryButtonAction}>
-            {props.secondaryButtonContent}
-          </Button>
+          {props.firstButtonContent && (
+            <Button type="submit" onClick={props.firstButtonAction}>
+              {props.firstButtonContent}
+            </Button>
+          )}
+
+          {props.secondButtonContent && (
+            <Button onClick={props.secondButtonAction}>
+              {props.secondButtonContent}
+            </Button>
+          )}
+
+          {props.thirdButtonContent && (
+            <Button onClick={props.thirdButtonAction}>
+              {props.thirdButtonContent}
+            </Button>
+          )}
         </div>
       </Card>
     </div>

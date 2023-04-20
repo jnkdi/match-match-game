@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Card from "../UI/Card";
 
 const Stopwatch = (props) => {
-  const [time, setTime] = useState(0);
+  const time = props.time;
 
   useEffect(() => {
     let intervalId;
 
     if (props.isRunning) {
-      intervalId = setInterval(() => setTime(time + 1), 10);
-      props.setTime(Math.round(time / 100));
+      intervalId = setInterval(() => props.setTime(time + 1), 10);
+      // props.setTime(Math.round(time / 100));
     }
 
     return () => clearInterval(intervalId);
