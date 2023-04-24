@@ -1,0 +1,53 @@
+.settings {
+  font-family: "Roboto";
+
+  padding: 50px;
+  max-width: 1000px;
+  margin: 33px auto;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+
+  .settings__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 256px;
+    padding: 16px;
+    color: rgba(0, 0, 0, 0.6);
+
+    .settings__title {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      letter-spacing: 0.15px;
+      color: rgba(0, 0, 0, 0.87);
+      margin-bottom: 10px;
+    }
+
+    select {
+      color: rgba(0, 0, 0, 0.6);
+
+      outline: none;
+      background: transparent;
+      cursor: pointer;
+
+      option {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.05);
+        border: rgba(0, 0, 0, 0.05);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &::after {
+      content: " ";
+      bottom: 0;
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      background-color: #21212114;
+    }
+  }
+}

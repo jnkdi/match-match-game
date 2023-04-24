@@ -8,8 +8,8 @@ import { db } from "../../firebase";
 import { getDocs, collection } from "firebase/firestore";
 
 const Game = (props) => {
-  const cardsAmount = 4;
-  const cardsSet = "animals";
+  const cardsAmount = props.cardsAmount;
+  const cardsSet = props.cardsSet;
   const showTime = 5;
 
   const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
@@ -20,7 +20,7 @@ const Game = (props) => {
   const [disabled, setDisabled] = useState(true);
   const [turns, setTurns] = useState(0);
   const [time, setTime] = useState(0);
-  const [isGameEnd, setIsGameEnd] = useState(false);
+  const [isWin, setIsWin] = useState(false);
 
   const matchAmount = useRef(0);
 
@@ -40,7 +40,7 @@ const Game = (props) => {
   const startGame = () => {
     setCardList(cardList.sort(() => Math.random() - 0.5));
     props.startGame();
-    setIsGameEnd(false);
+    setIsWin(false);
     setTime(0);
     setChoiceOne(null);
     setChoiceTwo(null);
@@ -75,6 +75,7 @@ const Game = (props) => {
           .slice(0, cardsAmount / 2)
           .concat(filteredData.slice(0, cardsAmount / 2))
           .map((card) => ({ ...card, id: Math.random() }))
+          .sort(() => Math.random() - 0.5)
       );
     } catch (err) {
       console.log(err);
@@ -122,14 +123,14 @@ const Game = (props) => {
 
   const endGameHandler = () => {
     props.stopGame();
-    setIsGameEnd(true);
+    setIsWin(true);
     setIsStopwatchRunning(false);
   };
 
   return (
     <main>
       <Card className="game">
-        {isGameEnd && <WinModal points={points} startNewGame={startGame} />}
+        {isWin && <WinModal points={points} startNewGame={startGame} />}
         <Stopwatch
           className="game__stopwatch"
           isRunning={isStopwatchRunning}

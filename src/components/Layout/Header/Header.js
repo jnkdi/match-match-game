@@ -34,7 +34,7 @@ const Header = (props) => {
         <p>match</p>
         <p>match</p>
       </div>
-      <Nav navItems={navItems} />
+      <Nav navItems={navItems} stopGame={props.onStopGame} />
       {!props.isRegistered && (
         <Button onClick={props.onOpenRegister} className="header__button">
           register new player

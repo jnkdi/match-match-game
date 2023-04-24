@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const NavItem = (props) => {
   return (
-    <li>
+    <li onClick={props.onClick}>
       <NavLink className="nav__item" to={props.href}>
         <img src={props.src} alt="icon" />
         <p>{props.title}</p>

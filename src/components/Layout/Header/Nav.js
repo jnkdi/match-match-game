@@ -10,6 +10,7 @@ const Nav = (props) => {
             src={item.src}
             href={item.href}
             key={item.id}
+            onClick={props.stopGame}
           />
         ))}
       </ul>

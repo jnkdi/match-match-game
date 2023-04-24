@@ -8,8 +8,10 @@ import Settings from "./components/Settings/Setings";
 
 function App() {
   const [isRegisterShown, setIsRegisterShown] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
   const [isGameOn, setIsGameOn] = useState(false);
+  const [cardsSet, setCardsSet] = useState("retro");
+  const [cardsAmount, setCardsAmount] = useState(2);
 
   const showRegisterHandler = () => {
     setIsRegisterShown(true);
@@ -24,6 +26,7 @@ function App() {
   };
 
   const startGameHandler = () => {
+    console.log('game Started');
     setIsGameOn(true);
   };
 
@@ -38,6 +41,7 @@ function App() {
         onCloseRegister={hideRegisterHandler}
         isRegistered={isRegistered}
         onStartGame={startGameHandler}
+        onStopGame={stopGameHandler}
         isGameOn={isGameOn}
       />
       <Routes>
@@ -55,10 +59,20 @@ function App() {
         <Route
           path="/game"
           element={
-            <Game stopGame={stopGameHandler} startGame={startGameHandler} />
+            <Game stopGame={stopGameHandler} startGame={startGameHandler} cardsSet={cardsSet} cardsAmount={cardsAmount}/>
           }
         />
-        <Route path="/settings" element={<Settings />} />
+        <Route
+          path="/settings"
+          element={
+            <Settings
+              setCardsSet={setCardsSet}
+              setCardsAmount={setCardsAmount}
+              cardsSet={cardsSet}
+              cardsAmount={cardsAmount}
+            />
+          }
+        />
         <Route path="/best-score" element={<BestScore />} />
       </Routes>
     </BrowserRouter>
