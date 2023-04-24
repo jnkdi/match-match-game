@@ -6,13 +6,13 @@ import WinModal from "./WinModal";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
 import { getDocs, collection } from "firebase/firestore";
+import StopModal from "./StopModal";
 
 const Game = (props) => {
   const cardsAmount = props.cardsAmount;
   const cardsSet = props.cardsSet;
   const showTime = 5;
 
-  const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
   const [cardList, setCardList] = useState([]);
   const [isFlipped, setIsFlipped] = useState(true);
   const [choiceOne, setChoiceOne] = useState(null);
@@ -58,7 +58,7 @@ const Game = (props) => {
     setTimeout(() => {
       setIsFlipped(false);
       setDisabled(false);
-      setIsStopwatchRunning(true);
+      props.setIsStopwatchRunning(true);
     }, showTime * 1000);
   };
 
@@ -124,16 +124,17 @@ const Game = (props) => {
   const endGameHandler = () => {
     props.stopGame();
     setIsWin(true);
-    setIsStopwatchRunning(false);
+    props.setIsStopwatchRunning(false);
   };
 
   return (
     <main>
       <Card className="game">
         {isWin && <WinModal points={points} startNewGame={startGame} />}
+        {!isWin && !props.isGameOn && <StopModal startNewGame={startGame} />}
         <Stopwatch
           className="game__stopwatch"
-          isRunning={isStopwatchRunning}
+          isRunning={props.isStopwatchRunning}
           setTime={setTime}
           time={time}
         />

@@ -7,6 +7,7 @@ import Header from "./components/Layout/Header/Header";
 import Settings from "./components/Settings/Setings";
 
 function App() {
+  const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
   const [isRegisterShown, setIsRegisterShown] = useState(false);
   const [isRegistered, setIsRegistered] = useState(true);
   const [isGameOn, setIsGameOn] = useState(false);
@@ -26,12 +27,13 @@ function App() {
   };
 
   const startGameHandler = () => {
-    console.log('game Started');
     setIsGameOn(true);
+    setIsStopwatchRunning(false);
   };
 
   const stopGameHandler = () => {
     setIsGameOn(false);
+    setIsStopwatchRunning(false);
   };
 
   return (
@@ -59,7 +61,15 @@ function App() {
         <Route
           path="/game"
           element={
-            <Game stopGame={stopGameHandler} startGame={startGameHandler} cardsSet={cardsSet} cardsAmount={cardsAmount}/>
+            <Game
+              stopGame={stopGameHandler}
+              startGame={startGameHandler}
+              cardsSet={cardsSet}
+              cardsAmount={cardsAmount}
+              isGameOn={isGameOn}
+              isStopwatchRunning={isStopwatchRunning}
+              setIsStopwatchRunning={setIsStopwatchRunning}
+            />
           }
         />
         <Route
