@@ -5,7 +5,7 @@ import GameCards from "./GameCards";
 import WinModal from "./WinModal";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
-import { getDocs, collection, updateDoc } from "firebase/firestore";
+import { getDocs, collection, updateDoc, getDoc } from "firebase/firestore";
 import StopModal from "./StopModal";
 
 const Game = (props) => {
@@ -23,11 +23,12 @@ const Game = (props) => {
   const [isWin, setIsWin] = useState(false);
 
   const matchAmount = useRef(0);
+  const grid = Math.ceil(Math.sqrt(props.cardsAmount));
 
   const cardsCollectionRef = collection(db, cardsSet);
 
   let points = Math.round(
-    100 * cardsAmount +
+    100 * cardsAmount -
       (turns - cardsAmount / 2) * 10 -
       (Math.round(time) * 5) / 100
   );
@@ -94,7 +95,7 @@ const Game = (props) => {
 
       if (choiceOne.src === choiceTwo.src && choiceOne.id !== choiceTwo.id) {
         matchAmount.current += 2;
-        if (matchAmount.current === cardsAmount) {
+        if (matchAmount.current === +cardsAmount) {
           endGameHandler();
         }
         setCardList((prevCards) => {
@@ -125,9 +126,14 @@ const Game = (props) => {
     props.stopGame();
     setIsWin(true);
     props.setIsStopwatchRunning(false);
-    await updateDoc(props.userRef, {
-      score: points
-    });
+    const user = await getDoc(props.userRef).then((user) => ({
+      ...user.data(),
+    }));
+    if (user.score < points) {
+      await updateDoc(props.userRef, {
+        score: points,
+      });
+    }
   };
 
   return (
@@ -148,6 +154,8 @@ const Game = (props) => {
           choiceTwo={choiceTwo}
           isFlipped={isFlipped}
           disabled={disabled}
+          style={{ gridTemplateColumns: `repeat(${grid}, 1fr)` }}
+          grid={grid}
         />
       </Card>
     </main>

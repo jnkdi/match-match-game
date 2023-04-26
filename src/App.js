@@ -3,6 +3,7 @@ import { db } from "./firebase";
 import { doc } from "firebase/firestore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AboutGame from "./components/AboutGame/AboutGame";
+import RegisterModal from "./components/RegisterModal/RegisterModal";
 import Game from "./components/Game/Game";
 import BestScore from "./components/BestScore/BestScore";
 import Header from "./components/Layout/Header/Header";
@@ -15,7 +16,7 @@ function App() {
   const [isRegistered, setIsRegistered] = useState(userKey);
   const [isGameOn, setIsGameOn] = useState(false);
   const [cardsSet, setCardsSet] = useState("retro");
-  const [cardsAmount, setCardsAmount] = useState(2);
+  const [cardsAmount, setCardsAmount] = useState(16);
 
   const userRef = doc(db, "users", `${userKey}`);
 
@@ -51,6 +52,12 @@ function App() {
         onStopGame={stopGameHandler}
         isGameOn={isGameOn}
       />
+      {isRegisterShown && (
+        <RegisterModal
+          onCloseModal={hideRegisterHandler}
+          onRegister={registeredHandler}
+        />
+      )}
       <Routes>
         <Route
           index
@@ -90,7 +97,7 @@ function App() {
             />
           }
         />
-        <Route path="/best-score" element={<BestScore />} />
+        <Route path="/best-score" element={<BestScore userKey={userKey} />} />
       </Routes>
     </BrowserRouter>
   );

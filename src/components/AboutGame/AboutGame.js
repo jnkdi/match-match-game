@@ -1,7 +1,5 @@
-import { Fragment } from "react";
 import "./AboutGame.scss";
 import Card from "../UI/Card";
-import RegisterModal from "../RegisterModal/RegisterModal";
 import Rules from "./Rules";
 import pic01 from "../../assets/about/01.jpg";
 import pic02 from "../../assets/about/02.jpg";
@@ -28,18 +26,10 @@ const AboutGame = (props) => {
   ];
 
   return (
-    <Fragment>
-      {props.openRegister && (
-        <RegisterModal
-          onCloseModal={props.onCloseRegister}
-          onRegister={props.onRegister}
-        />
-      )}
-      <Card className="about-game">
-        <h2 className="about-game__title">How to play?</h2>
-        <Rules rules={rules}></Rules>
-      </Card>
-    </Fragment>
+    <Card className="about-game">
+      <h2 className="about-game__title">How to play?</h2>
+      <Rules rules={rules}></Rules>
+    </Card>
   );
 };
 

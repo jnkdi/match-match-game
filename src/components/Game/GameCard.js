@@ -13,6 +13,7 @@ const GameCard = (props) => {
         className={`game__card ${props.flippedFront ? " " : "flipped"}`}
         id={props.card.id}
         onClick={handleClick}
+        style={props.style}
       >
         <div className="game__card card__back" />
         <div

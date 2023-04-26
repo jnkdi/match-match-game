@@ -20,7 +20,6 @@
 
   .game__cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
 
@@ -32,8 +31,6 @@
   }
 
   .game__card {
-    height: 168px;
-    width: 168px;
     background-size: 90%;
     position: relative;
     transform-style: preserve-3d;
