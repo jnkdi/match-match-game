@@ -1,34 +1,27 @@
 import "./RegisterModal.scss";
 import { useState } from "react";
-import { storage } from "../../firebase";
+import { storage, db } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { setDoc, doc } from "firebase/firestore";
 import { v4 } from "uuid";
 import Modal from "../UI/Modal";
 
 const RegisterModal = (props) => {
   const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
   const [error, setError] = useState(false);
 
-  const nameChangeHandler = (event) => {
+  const userNameChangeHandler = (event) => {
     setUserName(event.target.value);
-  };
-
-  const emailChangeHandler = (event) => {
-    setUserEmail(event.target.value);
   };
 
   const imageChangeHandler = (event) => {
     setUserAvatar(event.target.files[0]);
   };
 
-  const usersCollectionRef = collection(db, "users");
-
   const addUserHandler = async () => {
-    if (userName.trim().length === 0 || userEmail.trim().length === 0) {
+
+    if (userName.trim().length === 0) {
       setError(true);
       console.log("error");
       return;
@@ -36,16 +29,18 @@ const RegisterModal = (props) => {
 
     const userData = {
       name: userName,
-      email: userEmail,
       image: "",
-      id: Math.random().toString(),
+      score: 0,
     };
+
+    const userKey = userName + v4();
+    window.localStorage.setItem("user", JSON.stringify(userKey));
 
     if (!userAvatar) {
       setError(false);
       props.onRegister();
       props.onCloseModal();
-      return addDoc(usersCollectionRef, { userData });
+      return setDoc(doc(db, "users", `${userKey}`), userData);
     }
 
     const imageRef = ref(storage, `images/${userAvatar.name + v4()}`);
@@ -57,10 +52,9 @@ const RegisterModal = (props) => {
       (err) => console.log(err),
       () => {
         getDownloadURL(uploadImage.snapshot.ref)
-          // .then((url) => url.json())
           .then((url) => {
             userData.image = url;
-            return addDoc(usersCollectionRef, { userData });
+            return setDoc(doc(db, "users", `${userKey}`), userData);
           });
       }
     );
@@ -74,14 +68,13 @@ const RegisterModal = (props) => {
     <Modal
       onCloseModal={props.onCloseModal}
       modalTitle={"Register new Player"}
-      primaryButtonAction={addUserHandler}
-      primaryButtonContent={"Add user"}
-      secondaryButtonAction={props.onCloseModal}
-      secondaryButtonContent={"cancel"}
+      firstButtonAction={addUserHandler}
+      firstButtonContent={"Add user"}
+      secondButtonAction={props.onCloseModal}
+      secondButtonContent={"cancel"}
     >
       <form className="user-modal__form">
-        <input onChange={nameChangeHandler} type="text" placeholder="Name" />
-        <input onChange={emailChangeHandler} type="text" placeholder="E-mail" />
+        <input onChange={userNameChangeHandler} type="text" placeholder="Username" />
         <input onChange={imageChangeHandler} type="file" name="file" />
         <span
           className="user-modal__error"
@@ -89,7 +82,7 @@ const RegisterModal = (props) => {
             display: error ? "block" : "none",
           }}
         >
-          Enter all data
+          Enter username
         </span>
       </form>
     </Modal>

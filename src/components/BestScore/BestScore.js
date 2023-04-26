@@ -32,9 +32,9 @@ const BestScore = () => {
       <h2 className="best-players__title">Best players</h2>
       {usersList.map((user) => (
         <User
-          image={user.userData.image}
-          name={user.userData.name}
-          score={user.userData.score || "0"}
+          image={user.image}
+          name={user.name}
+          score={user.score || "0"}
           key={user.id}
         ></User>
       ))}

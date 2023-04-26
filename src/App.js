@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { db } from "./firebase";
+import { doc } from "firebase/firestore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AboutGame from "./components/AboutGame/AboutGame";
 import Game from "./components/Game/Game";
@@ -7,12 +9,15 @@ import Header from "./components/Layout/Header/Header";
 import Settings from "./components/Settings/Setings";
 
 function App() {
+  const userKey = JSON.parse(window.localStorage.getItem("user"));
   const [isStopwatchRunning, setIsStopwatchRunning] = useState(false);
   const [isRegisterShown, setIsRegisterShown] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(userKey);
   const [isGameOn, setIsGameOn] = useState(false);
   const [cardsSet, setCardsSet] = useState("retro");
   const [cardsAmount, setCardsAmount] = useState(2);
+
+  const userRef = doc(db, "users", `${userKey}`);
 
   const showRegisterHandler = () => {
     setIsRegisterShown(true);
@@ -69,6 +74,8 @@ function App() {
               isGameOn={isGameOn}
               isStopwatchRunning={isStopwatchRunning}
               setIsStopwatchRunning={setIsStopwatchRunning}
+              userKey={userKey}
+              userRef={userRef}
             />
           }
         />

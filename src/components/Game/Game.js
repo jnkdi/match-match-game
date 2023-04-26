@@ -5,7 +5,7 @@ import GameCards from "./GameCards";
 import WinModal from "./WinModal";
 import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, updateDoc } from "firebase/firestore";
 import StopModal from "./StopModal";
 
 const Game = (props) => {
@@ -121,10 +121,13 @@ const Game = (props) => {
     setDisabled(false);
   };
 
-  const endGameHandler = () => {
+  const endGameHandler = async () => {
     props.stopGame();
     setIsWin(true);
     props.setIsStopwatchRunning(false);
+    await updateDoc(props.userRef, {
+      score: points
+    });
   };
 
   return (
