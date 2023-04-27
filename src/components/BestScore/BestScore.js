@@ -25,7 +25,7 @@ const BestScore = (props) => {
     };
 
     getUsersList();
-  }, [props.userKey]);
+  }, [props.userKey, props.avatarUrl]);
 
   return (
     <Card className="best-players">

@@ -41,14 +41,35 @@ const Header = (props) => {
         </Button>
       )}
       {props.isRegistered && !props.isGameOn && (
-        <Button onClick={props.onStartGame} className="header__button">
-          <Link to="/game">start game</Link>
-        </Button>
+        <div className="header__right">
+          <Button onClick={props.onStartGame} className="header__button">
+            <Link to="/game">start game</Link>
+          </Button>
+          <img
+            onClick={props.onOpenAvatarChange}
+            className="header__avatar"
+            alt="avatar"
+            src={
+              props.user.image ||
+              "https://firebasestorage.googleapis.com/v0/b/match-match-game-9501e.appspot.com/o/images%2Falien.png?alt=media&token=aff509f7-d3c4-4dfb-ab44-58c1e485cd5b"
+            }
+          />
+        </div>
       )}
       {props.isRegistered && props.isGameOn && (
-        <Button onClick={props.onStopGame} className="header__button">
-          stop game
-        </Button>
+        <div className="header__right">
+          <Button onClick={props.onStopGame} className="header__button">
+            stop game
+          </Button>
+          <img
+            className="header__avatar"
+            alt="avatar"
+            src={
+              props.user.image ||
+              "https://firebasestorage.googleapis.com/v0/b/match-match-game-9501e.appspot.com/o/images%2Falien.png?alt=media&token=aff509f7-d3c4-4dfb-ab44-58c1e485cd5b"
+            }
+          />
+        </div>
       )}
     </header>
   );

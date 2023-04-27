@@ -29,8 +29,8 @@ const Game = (props) => {
 
   let points = Math.round(
     100 * cardsAmount -
-      (turns - cardsAmount / 2) * 10 -
-      (Math.round(time) * 5) / 100
+      (turns - cardsAmount / 2) * 100 -
+      (Math.round(time)) / 10
   );
 
   useEffect(() => {
@@ -139,7 +139,7 @@ const Game = (props) => {
   return (
     <main>
       <Card className="game">
-        {isWin && <WinModal points={points} startNewGame={startGame} />}
+        {isWin && <WinModal points={points > 0 ? points : 0} startNewGame={startGame} />}
         {!isWin && !props.isGameOn && <StopModal startNewGame={startGame} />}
         <Stopwatch
           className="game__stopwatch"

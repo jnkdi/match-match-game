@@ -20,7 +20,6 @@ const RegisterModal = (props) => {
   };
 
   const addUserHandler = async () => {
-
     if (userName.trim().length === 0) {
       setError(true);
       console.log("error");
@@ -51,11 +50,11 @@ const RegisterModal = (props) => {
       (snapshot) => {},
       (err) => console.log(err),
       () => {
-        getDownloadURL(uploadImage.snapshot.ref)
-          .then((url) => {
-            userData.image = url;
-            return setDoc(doc(db, "users", `${userKey}`), userData);
-          });
+        getDownloadURL(uploadImage.snapshot.ref).then((url) => {
+          userData.image = url;
+          props.setAvatarUrl(url);
+          return setDoc(doc(db, "users", `${userKey}`), userData);
+        });
       }
     );
 
@@ -74,7 +73,11 @@ const RegisterModal = (props) => {
       secondButtonContent={"cancel"}
     >
       <form className="user-modal__form">
-        <input onChange={userNameChangeHandler} type="text" placeholder="Username" />
+        <input
+          onChange={userNameChangeHandler}
+          type="text"
+          placeholder="Username"
+        />
         <input onChange={imageChangeHandler} type="file" name="file" />
         <span
           className="user-modal__error"

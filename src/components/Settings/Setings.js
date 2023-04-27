@@ -18,6 +18,8 @@ const Settings = (props) => {
       id: Math.random().toString(),
       title: "Difficulty",
       options: [
+        { value: 8, label: "8" },
+        { value: 12, label: "12" },
         { value: 16, label: "16" },
         { value: 20, label: "20" },
         { value: 36, label: "36" },
