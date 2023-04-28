@@ -24,9 +24,9 @@ const AvatarChangeModal = (props) => {
         getDownloadURL(uploadImage.snapshot.ref).then((url) => {
           props.setAvatarUrl(url);
           updateDoc(props.userRef, {
-            image:
-              url ||
-              "https://firebasestorage.googleapis.com/v0/b/match-match-game-9501e.appspot.com/o/images%2Falien.png?alt=media&token=aff509f7-d3c4-4dfb-ab44-58c1e485cd5b",
+            image: url.includes("undefined")
+              ? "https://firebasestorage.googleapis.com/v0/b/match-match-game-9501e.appspot.com/o/images%2Falien.png?alt=media&token=aff509f7-d3c4-4dfb-ab44-58c1e485cd5b"
+              : url,
           });
         });
       }

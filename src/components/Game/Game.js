@@ -27,10 +27,10 @@ const Game = (props) => {
 
   const cardsCollectionRef = collection(db, cardsSet);
 
-  let points = Math.round(
-    100 * cardsAmount -
-      (turns - cardsAmount / 2) * 100 -
-      (Math.round(time)) / 10
+  const points = useRef(0);
+
+  points.current = Math.round(
+    100 * cardsAmount - (turns - cardsAmount / 2) * 100 - Math.round(time) / 10
   );
 
   useEffect(() => {
@@ -129,9 +129,10 @@ const Game = (props) => {
     const user = await getDoc(props.userRef).then((user) => ({
       ...user.data(),
     }));
-    if (user.score < points) {
+
+    if (user.score < points.current) {
       await updateDoc(props.userRef, {
-        score: points,
+        score: points.current,
       });
     }
   };
@@ -139,7 +140,12 @@ const Game = (props) => {
   return (
     <main>
       <Card className="game">
-        {isWin && <WinModal points={points > 0 ? points : 0} startNewGame={startGame} />}
+        {isWin && (
+          <WinModal
+            points={points.current > 0 ? points.current : 0}
+            startNewGame={startGame}
+          />
+        )}
         {!isWin && !props.isGameOn && <StopModal startNewGame={startGame} />}
         <Stopwatch
           className="game__stopwatch"

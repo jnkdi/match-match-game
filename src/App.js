@@ -20,17 +20,17 @@ function App() {
   const [isGameOn, setIsGameOn] = useState(false);
   const [cardsSet, setCardsSet] = useState("retro");
   const [cardsAmount, setCardsAmount] = useState(16);
-  const [avatarUrl, setAvatarUrl] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState("");
 
   const userRef = doc(db, "users", `${userKey}`);
 
   useEffect(() => {
-    const getUser = async() => {
+    const getUser = async () => {
       const user = await getDoc(userRef).then((user) => ({
         ...user.data(),
       }));
       setUser(user);
-    }
+    };
     getUser();
   }, [userKey, avatarUrl]);
 
@@ -96,7 +96,7 @@ function App() {
       <Routes>
         <Route
           index
-          path="/about-game"
+          path="/"
           element={
             <AboutGame
               onRegister={registeredHandler}
@@ -132,7 +132,10 @@ function App() {
             />
           }
         />
-        <Route path="/best-score" element={<BestScore userKey={userKey} avatarUrl={avatarUrl}/>} />
+        <Route
+          path="/best-score"
+          element={<BestScore userKey={userKey} avatarUrl={avatarUrl} />}
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -12,7 +12,7 @@ const Header = (props) => {
       id: Math.random().toString(),
       src: about,
       title: "About Game",
-      href: "/about-game",
+      href: "/",
     },
     {
       id: Math.random().toString(),
