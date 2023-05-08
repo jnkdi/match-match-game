@@ -21,6 +21,8 @@
   .game__cards {
     display: grid;
     gap: 20px;
+    width: 80%;
+    padding: 0 auto;
   }
 
   .card__container {
@@ -31,6 +33,8 @@
   }
 
   .game__card {
+    aspect-ratio: 1 / 1;
+    width: 100%;
     background-size: 90%;
     position: relative;
     transform-style: preserve-3d;
@@ -60,6 +64,36 @@
     .card__back {
       background: #2196f3;
       transform: rotateY(180deg);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .game {
+    margin: 20px 10px;
+    padding: 10px;
+
+    .modal .actions {
+      flex-direction: column;
+    }
+
+    .game__stopwatch {
+      padding: 10px 55px;
+      margin-bottom: 20px;
+      font-size: 25px;
+      line-height: 25px;
+    }
+    .game__cards {
+      gap: 10px;
+      width: 100% !important;
+    }
+  }
+}
+
+@media (max-width: 424px) {
+  .game {
+    .game__cards {
+      gap: 5px;
     }
   }
 }

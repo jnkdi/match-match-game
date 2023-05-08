@@ -9,6 +9,7 @@ import Game from "./components/Game/Game";
 import BestScore from "./components/BestScore/BestScore";
 import Header from "./components/Layout/Header/Header";
 import Settings from "./components/Settings/Setings";
+import Footer from "./components/Layout/Footer/Footer";
 
 function App() {
   const userKey = JSON.parse(window.localStorage.getItem("user"));
@@ -19,7 +20,7 @@ function App() {
   const [isRegistered, setIsRegistered] = useState(userKey);
   const [isGameOn, setIsGameOn] = useState(false);
   const [cardsSet, setCardsSet] = useState("retro");
-  const [cardsAmount, setCardsAmount] = useState(16);
+  const [cardsAmount, setCardsAmount] = useState(12);
   const [avatarUrl, setAvatarUrl] = useState("");
 
   const userRef = doc(db, "users", `${userKey}`);
@@ -77,66 +78,69 @@ function App() {
         userRef={userRef}
         user={user}
       />
-      {isRegisterShown && (
-        <RegisterModal
-          onCloseModal={hideRegisterHandler}
-          onRegister={registeredHandler}
-          setAvatarUrl={setAvatarUrl}
-        />
-      )}
-      {isAvatarChangeShown && (
-        <AvatarChangeModal
-          onCloseModal={hideAvatarChangeHandler}
-          onRegister={registeredHandler}
-          setAvatarUrl={setAvatarUrl}
-          userKey={userKey}
-          userRef={userRef}
-        />
-      )}
-      <Routes>
-        <Route
-          index
-          path="/"
-          element={
-            <AboutGame
-              onRegister={registeredHandler}
-              openRegister={isRegisterShown}
-              onCloseRegister={hideRegisterHandler}
-            />
-          }
-        />
-        <Route
-          path="/game"
-          element={
-            <Game
-              stopGame={stopGameHandler}
-              startGame={startGameHandler}
-              cardsSet={cardsSet}
-              cardsAmount={cardsAmount}
-              isGameOn={isGameOn}
-              isStopwatchRunning={isStopwatchRunning}
-              setIsStopwatchRunning={setIsStopwatchRunning}
-              userKey={userKey}
-              userRef={userRef}
-            />
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <Settings
-              setCardsSet={setCardsSet}
-              setCardsAmount={setCardsAmount}
-              cardsSet={cardsSet}
-              cardsAmount={cardsAmount}
-            />
-          }
-        />
-        <Route
-          path="/best-score"
-          element={<BestScore userKey={userKey} avatarUrl={avatarUrl} />}
-        />
-      </Routes>
+      <main className="main">
+        {isRegisterShown && (
+          <RegisterModal
+            onCloseModal={hideRegisterHandler}
+            onRegister={registeredHandler}
+            setAvatarUrl={setAvatarUrl}
+          />
+        )}
+        {isAvatarChangeShown && (
+          <AvatarChangeModal
+            onCloseModal={hideAvatarChangeHandler}
+            onRegister={registeredHandler}
+            setAvatarUrl={setAvatarUrl}
+            userKey={userKey}
+            userRef={userRef}
+          />
+        )}
+        <Routes>
+          <Route
+            index
+            path="/"
+            element={
+              <AboutGame
+                onRegister={registeredHandler}
+                openRegister={isRegisterShown}
+                onCloseRegister={hideRegisterHandler}
+              />
+            }
+          />
+          <Route
+            path="/game"
+            element={
+              <Game
+                stopGame={stopGameHandler}
+                startGame={startGameHandler}
+                cardsSet={cardsSet}
+                cardsAmount={cardsAmount}
+                isGameOn={isGameOn}
+                isStopwatchRunning={isStopwatchRunning}
+                setIsStopwatchRunning={setIsStopwatchRunning}
+                userKey={userKey}
+                userRef={userRef}
+              />
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <Settings
+                setCardsSet={setCardsSet}
+                setCardsAmount={setCardsAmount}
+                cardsSet={cardsSet}
+                cardsAmount={cardsAmount}
+              />
+            }
+          />
+          <Route
+            path="/best-score"
+            element={<BestScore userKey={userKey} avatarUrl={avatarUrl} />}
+          />
+        </Routes>
+      </main>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -11,7 +11,7 @@
     z-index: 10;
     background: rgba(0, 0, 0, 0.75);
   }
-  
+
   .user-modal {
     position: fixed;
     top: 30vh;
@@ -19,16 +19,16 @@
     width: 80%;
     z-index: 100;
     overflow: hidden;
-    background-color: #FAFAFA;
-  
+    background-color: #fafafa;
+
     .user-modal__title {
-      background: #FFFFFF;
+      background: #ffffff;
       color: rgba(0, 0, 0, 0.87);
       font-weight: 500;
       font-size: 20px;
       line-height: 30px;
       letter-spacing: 0.15px;
-      padding: 20px 16px;
+      padding: 20px 15px;
     }
 
     .user-modal__form {
@@ -53,18 +53,19 @@
       justify-content: flex-end;
       gap: 16px;
       padding: 20px 25px;
-      
+
       button {
-        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12),
+          0px 2px 2px rgba(0, 0, 0, 0.24);
 
         &:nth-of-type(1) {
-          color: #FFFFFF;
-          background: #2196F3;;
+          color: #ffffff;
+          background: #2196f3;
         }
 
         &:nth-of-type(2) {
-          color: #2196F3;
-          background: #E3F2FD;
+          color: #2196f3;
+          background: #e3f2fd;
         }
       }
     }
@@ -74,6 +75,17 @@
     .user-modal {
       left: calc(50% - 20rem);
       width: 40rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .user-modal .user-modal__form {
+      max-width: 100%;
+      padding: 0;
+
+      input {
+        padding: 10px 15px;
+      }
     }
   }
 }

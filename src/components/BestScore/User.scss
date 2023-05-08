@@ -6,7 +6,7 @@
   padding: 12px 0;
 
   &::after {
-    content: ' ';
+    content: " ";
     bottom: 0;
     position: absolute;
     height: 1px;
@@ -39,7 +39,7 @@
     color: rgba(0, 0, 0, 0.87);
 
     span {
-      color: #2196F3;
+      color: #2196f3;
     }
   }
 }

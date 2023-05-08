@@ -17,10 +17,7 @@ const GameCards = (props) => {
           }
           disabled={props.disabled}
           style={{
-            height: `${
-              props.grid === 6 ? "120px" : props.grid === 5 ? "150px" : "160px"
-            }`,
-            width: `${
+            maxWidth: `${
               props.grid === 6 ? "120px" : props.grid === 5 ? "150px" : "160px"
             }`,
           }}

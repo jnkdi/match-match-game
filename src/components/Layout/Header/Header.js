@@ -31,8 +31,10 @@ const Header = (props) => {
   return (
     <header className="header">
       <div className="header__logo">
-        <p>match</p>
-        <p>match</p>
+        <Link to="/">
+          <p>match</p>
+          <p>match</p>
+        </Link>
       </div>
       <Nav navItems={navItems} stopGame={props.onStopGame} />
       {!props.isRegistered && (
@@ -42,9 +44,13 @@ const Header = (props) => {
       )}
       {props.isRegistered && !props.isGameOn && (
         <div className="header__right">
-          <Button onClick={props.onStartGame} className="header__button">
-            <Link to="/game">start game</Link>
-          </Button>
+          <Link
+            to="/game"
+            onClick={props.onStartGame}
+            className="header__button button"
+          >
+            start game
+          </Link>
           <img
             onClick={props.onOpenAvatarChange}
             className="header__avatar"

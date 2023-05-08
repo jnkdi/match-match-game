@@ -1,5 +1,5 @@
 .best-players {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   padding: 50px;
   max-width: 1000px;
   margin: 33px auto;
@@ -12,5 +12,16 @@
     letter-spacing: 0.15px;
     color: #333333;
     margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 767px) {
+  .best-players {
+    margin: 20px 10px;
+    padding: 30px;
+
+    .best-players__title {
+      font-size: 18px;
+    }
   }
 }

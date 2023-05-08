@@ -1,5 +1,5 @@
 .about-game {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   padding: 28px 36px;
   max-width: 1000px;
   margin: 33px auto;
@@ -38,9 +38,10 @@
     }
 
     .rule__number {
-      background-color: #2196F3;
-      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14);
-      color: #FFFFFF;
+      background-color: #2196f3;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2),
+        0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14);
+      color: #ffffff;
       min-width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -57,6 +58,48 @@
 
     .rule__img {
       object-fit: contain;
+
+      img {
+        max-width: 300px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .about-game {
+    margin: 20px 10px;
+
+    .about-game__title {
+      font-size: 18px;
+    }
+
+    .rules {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rules__rule {
+      flex-direction: column;
+
+      .rule__descriprion-card {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .rule__number {
+        min-width: 25px;
+        height: 25px;
+        font-size: 16px;
+      }
+
+      .rule__descriprion {
+        margin: 0;
+      }
+
+      .rule__img img {
+        max-width: 230px;
+      }
     }
   }
 }

@@ -160,7 +160,10 @@ const Game = (props) => {
           choiceTwo={choiceTwo}
           isFlipped={isFlipped}
           disabled={disabled}
-          style={{ gridTemplateColumns: `repeat(${grid}, 1fr)` }}
+          style={{
+            gridTemplateColumns: `repeat(${grid}, 1fr)`,
+            width: `${grid === 4 ? "80%" : "100%"}`,
+          }}
           grid={grid}
         />
       </Card>

@@ -51,3 +51,15 @@
     }
   }
 }
+
+@media (max-width: 767px) {
+  .settings {
+    margin: 20px 10px;
+    padding: 30px;
+    .settings__item {
+      .settings__title {
+        font-size: 18px;
+      }
+    }
+  }
+}
