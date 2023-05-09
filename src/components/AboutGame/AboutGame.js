@@ -9,7 +9,7 @@ const AboutGame = (props) => {
   const rules = [
     {
       id: 1,
-      content: "Register new player in game",
+      content: "Register new player in game by entering a name and uploading a photo (optional)",
       src: pic01,
     },
     {
@@ -20,7 +20,7 @@ const AboutGame = (props) => {
     {
       id: 3,
       content:
-        "Start you new game! Remember card positions and match it before times up.",
+        "Start you new game! Remember card positions and match it as quickly as possible with a minimum number of wrong answers",
       src: pic03,
     },
   ];
