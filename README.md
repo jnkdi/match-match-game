@@ -1,5 +1,7 @@
 # Match match memory game
 
+**[Deploy](https://match-match-game-9501e.web.app/)**.
+
 ## Technical Information:
 
 - The application was developed using the **React.js** JavaScript library.
